@@ -29,7 +29,6 @@
     font-family:'IM Fell English',serif;
   }
 
-  /* MASTHEAD above book */
   .masthead{
     text-align:center;
     margin-bottom:0.8rem;
@@ -51,7 +50,6 @@
     margin-top:0.2rem;
   }
 
-  /* BOOK CONTAINER */
   .book-wrap{
     perspective:2000px;
     width:min(960px, 98vw);
@@ -63,7 +61,6 @@
     position:relative;
   }
 
-  /* Individual page */
   .page-wrap{
     width:50%;
     position:relative;
@@ -90,33 +87,11 @@
     position:relative;
     overflow:hidden;
     box-shadow: inset -4px 0 8px rgba(0,0,0,0.08);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  
-  .page.fade-out-left {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  
-  .page.fade-out-right {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  
-  .page.fade-in {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  
-  .page.fade-in-left {
-    opacity: 0;
-    transform: translateX(-30px);
   }
   .page-wrap.is-right .page{
     box-shadow: inset 4px 0 8px rgba(0,0,0,0.08);
   }
 
-  /* Paper texture via repeating dots */
   .page::before{
     content:'';
     position:absolute;inset:0;
@@ -126,7 +101,6 @@
   }
   .page > *{position:relative;z-index:1;}
 
-  /* Spine shadow */
   .spine{
     width:20px;
     background: linear-gradient(to right, #1a1208, #3a2e1a 40%, #2a2010 60%, #1a1208);
@@ -136,7 +110,6 @@
     box-shadow:0 0 15px rgba(0,0,0,0.5);
   }
 
-  /* PAGE HEADER (paper top bar) */
   .pg-header{
     display:flex;
     justify-content:space-between;
@@ -153,7 +126,6 @@
   }
   .pg-num{font-weight:700;color:var(--ink)}
 
-  /* MASTHEAD inside page 1 */
   .inner-masthead{
     text-align:center;
     border-bottom:3px double var(--rule);
@@ -183,16 +155,13 @@
     padding-top:3px;
   }
 
-  /* COLUMN LAYOUTS */
-  .cols-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
-  .cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem}
-  .col-span-2{grid-column:span 2}
-  .col-span-3{grid-column:span 3}
+  .cols-2{display:grid;grid-template-columns:1fr;gap:0.8rem}
+  .cols-3{display:grid;grid-template-columns:1fr;gap:0.6rem}
+  .col-span-2{grid-column:span 1}
+  .col-span-3{grid-column:span 1}
 
-  /* VERTICAL RULES */
-  .v-rule{border-left:1px solid var(--rule)}
+  .v-rule{border-left:none;padding-left:0!important}
 
-  /* HEADLINE STYLES */
   .headline-xl{
     font-family:'Playfair Display',serif;
     font-size:clamp(1.4rem,3vw,2.2rem);
@@ -242,7 +211,6 @@
     padding-bottom:4px;
   }
 
-  /* BODY TEXT */
   .body-text{
     font-family:'IM Fell English',serif;
     font-size:0.72rem;
@@ -261,7 +229,6 @@
     font-weight:900;
   }
 
-  /* MENU ITEM in newspaper style */
   .menu-entry{margin-bottom:0.5rem}
   .menu-entry-head{
     display:flex;
@@ -292,7 +259,6 @@
     font-family:'IM Fell English',serif;
   }
 
-  /* SECTION RULE */
   .section-rule{
     display:flex;
     align-items:center;
@@ -312,7 +278,6 @@
     padding:0 4px;
   }
 
-  /* BOX / ADVERTORIAL */
   .box{
     border:1.5px solid var(--rule);
     padding:0.5rem 0.6rem;
@@ -333,7 +298,6 @@
     text-transform:uppercase;
   }
 
-  /* HR ORNAMENT */
   .ornament{
     text-align:center;
     color:var(--ink-faded);
@@ -342,7 +306,6 @@
     margin:0.4rem 0;
   }
 
-  /* PHOTO PLACEHOLDER */
   .photo-box{
     background:var(--paper-dark);
     border:1px solid var(--rule);
@@ -358,7 +321,6 @@
     padding:0.5rem;
   }
 
-  /* PAGE TURN BUTTONS */
   .controls{
     display:flex;
     justify-content:center;
@@ -401,7 +363,6 @@
     height:3px;
   }
 
-  /* Click zones for mobile navigation */
   .click-zone {
     position: absolute;
     top: 0;
@@ -421,7 +382,6 @@
     .cols-2,.cols-3{grid-template-columns:1fr}
     .col-span-2,.col-span-3{grid-column:span 1}
     
-    /* Single page view on mobile */
     .spine{
       display: none;
     }
@@ -446,17 +406,13 @@
 
 <div class="book-wrap">
   <div class="book" id="book">
-    <!-- Click zones for mobile navigation -->
     <div class="click-zone click-zone-left" id="clickZoneLeft"></div>
     <div class="click-zone click-zone-right" id="clickZoneRight"></div>
     
-    <!-- LEFT PAGE -->
     <div class="page-wrap" id="leftPage">
       <div class="page" id="leftContent"></div>
     </div>
-    <!-- SPINE -->
     <div class="spine"></div>
-    <!-- RIGHT PAGE -->
     <div class="page-wrap is-right" id="rightPage">
       <div class="page" id="rightContent"></div>
     </div>
@@ -467,11 +423,11 @@
   <button class="ctrl-btn" id="prevBtn" onclick="turnPage(-1)" disabled>◀ Page précédente</button>
   <button class="ctrl-btn" id="nextBtn" onclick="turnPage(1)">Page suivante ▶</button>
 </div>
-<div class="page-indicator" id="pageIndicator">Pages 1 – 2 sur 8</div>
+<div class="page-indicator" id="pageIndicator">Pages 1 – 2 sur 10</div>
 
 <script>
 const pages = [
-  // PAGE 1 — Front Cover / Entrées
+  // PAGE 1 — Petit-déjeuner
   `<div class="pg-header">
     <span>Vol. I, No. 12</span>
     <span>La Maison Dorée</span>
@@ -479,403 +435,542 @@ const pages = [
   </div>
   <div class="inner-masthead">
     <div class="paper-name">La Maison Dorée</div>
-    <div class="paper-meta">Restaurant & Brasserie · Fondé en 1887 · Marburg, Hesse</div>
+    <div class="paper-meta">Restaurant & Brasserie · Menu du Jour</div>
     <div class="paper-tagline">« Une table où chaque repas devient un souvenir »</div>
   </div>
-  <div class="cols-3">
-    <div class="col-span-2">
-      <div class="kicker">— Première Page —</div>
-      <div class="headline-xl">Les Entrées<br>du Printemps</div>
-      <div class="subhead">"Les premières saveurs de la saison, cueillies avec soin pour votre plaisir"</div>
-      <p class="body-text drop-cap">Bienvenue à La Maison Dorée, où chaque assiette raconte l'histoire de notre terroir et du travail artisanal de nos producteurs locaux. Ce menu de printemps a été composé par notre chef Arnaud avec les premiers arrivages du marché.</p>
+  <div class="cols-2">
+    <div>
+      <div class="kicker">— Petit-déjeuner —</div>
+      <div class="headline-xl">Les<br>Petit-déjeuner</div>
+      <div class="subhead">"Commencez votre journée avec nos délicieuses options"</div>
+      <p class="body-text drop-cap">Découvrez notre sélection de petit-déjeuners soigneusement préparés pour bien commencer la journée.</p>
       <div class="ornament">— ✦ —</div>
-      <div class="section-rule"><span>Nos Entrées</span></div>
+      <div class="section-rule"><span>Petit-déjeuner</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Velouté de Pois Frais</span><span class="menu-entry-price">9,50 €</span></div>
-        <div class="menu-entry-desc">Crème légère à la menthe, croûtons de pain rustique, huile de truffe blanche</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Petit-déjeuner Bonjour</span><span class="menu-entry-price">11,200</span></div>
+        <div class="menu-entry-desc">Eau 0.5l - Jus frais - Viennoiserie - Mini omelette - Café au choix</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Tartare de Saumon Fumé</span><span class="menu-entry-price">13,00 €</span></div>
-        <div class="menu-entry-desc">Câpres, aneth frais, crème acidulée, galette de sarrasin maison</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Petit-déjeuner Kinzo</span><span class="menu-entry-price">23,800</span></div>
+        <div class="menu-entry-desc">Café au choix - Mini jus - Crêpe chocolat - Tiramisu - Omelette - Charcuterie - Toast fromage - Harissa</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Foie Gras de Canard</span><span class="menu-entry-price">17,50 €</span></div>
-        <div class="menu-entry-desc">Confit maison, chutney de figues, brioche toastée au beurre noisette</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Salade de Chèvre Chaud</span><span class="menu-entry-price">11,00 €</span></div>
-        <div class="menu-entry-desc">Fromage de chèvre rôti, noix caramélisées, pommes vertes, miel de lavande</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Soupe à l'Oignon Gratinée</span><span class="menu-entry-price">10,50 €</span></div>
-        <div class="menu-entry-desc">Recette traditionnelle, croûton gratiné au fromage Comté affiné 12 mois</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Brunch Le Journal (Pour 2 personnes)</span><span class="menu-entry-price">52,100</span></div>
+        <div class="menu-entry-desc">Café au choix - 2 Mini jus - 2 Viennoiseries - Omelette - Charcuterie - Crêpe chocolat - Datte farcie - Ricotta - Pain perdu caramel - Mini bol granola - Crêpe salée - Poulet gratiné - Harissa - Huile d'olive - Beurre - Confiture - Miel - Eau 1l - Brownies</div>
       </div>
     </div>
-    <div>
+    <div class="v-rule" style="padding-left:0.8rem">
       <div class="box box-double">
-        <div class="box-title">Le Chef</div>
-        <div class="photo-box" style="height:90px;">Arnaud Leclerc<br>Chef depuis 2015</div>
-        <p class="body-text" style="margin-top:6px;font-size:0.65rem">« Ce printemps, j'ai voulu capturer la légèreté des premières verdures dans chacune de mes créations. »</p>
-      </div>
-      <div class="ornament" style="margin:0.8rem 0 0.4rem">— ✦ —</div>
-      <div class="box">
-        <div class="box-title">Infos</div>
-        <p class="body-text" style="font-size:0.65rem">Ouvert Mar – Dim<br>12h00 – 14h30<br>19h00 – 22h30<br><br>Réservations :<br>+49 6421 123 456</p>
+        <div class="box-title">Bienvenue</div>
+        <p class="body-text" style="font-size:0.65rem">Commencez votre journée avec nos délicieux petit-déjeuners préparés avec des ingrédients frais et de qualité.</p>
       </div>
     </div>
   </div>`,
 
-  // PAGE 2 — Plats Viandes
+  // PAGE 2 — Les Toasts & Croissant
   `<div class="pg-header">
     <span class="pg-num">Page II</span>
     <span>La Maison Dorée — Menu</span>
-    <span>Printemps 2026</span>
+    <span>Menu du Jour</span>
   </div>
-  <div class="headline-lg">Les Plats — Viandes & Volailles</div>
-  <div class="subhead">"Élevages sélectionnés, cuissons maîtrisées, saveurs authentiques"</div>
+  <div class="headline-lg">Les Toasts & Croissant</div>
+  <div class="subhead">"Nos délicieux toasts et croissants pour tous les goûts"</div>
   <div class="cols-2">
     <div>
-      <p class="body-text drop-cap">Notre carte des viandes fait la part belle aux éleveurs locaux de la région Hessoise et des terroirs voisins. Chaque pièce est maturée selon les règles de l'art.</p>
-      <div class="section-rule"><span>Viandes Rouges</span></div>
+      <div class="section-rule"><span>Les Toasts</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Entrecôte Grillée</span><span class="menu-entry-price">26,00 €</span></div>
-        <div class="menu-entry-desc">Sauce au poivre vert, frites maison, salade du marché · 300g</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Toast Sportif</span><span class="menu-entry-price">21,000</span></div>
+        <div class="menu-entry-desc">Saumon - Avocat - Œuf poché - Sauce fromage - Roquette - Café au choix - Mini jus</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Côte de Bœuf (2 pers.)</span><span class="menu-entry-price">58,00 €</span></div>
-        <div class="menu-entry-desc">Maturée 45 jours, beurre maître d'hôtel, gratin dauphinois · 800g</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Toast Emmental</span><span class="menu-entry-price">18,800</span></div>
+        <div class="menu-entry-desc">Champignon sauté - Œuf brouillé - Sauce fromage - Emmental - Roquette - Café - Mini jus</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Agneau Confit 7 Heures</span><span class="menu-entry-price">28,50 €</span></div>
-        <div class="menu-entry-desc">Épaule fondante, semoule dorée, harissa douce, menthe fraîche</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Toast Poulet Pesto</span><span class="menu-entry-price">16,900</span></div>
+        <div class="menu-entry-desc">Sauce fromage - Poulet fumé - Œuf poché - Pesto - Roquette - Parmesan - Café au choix - Mini jus - Balsamique</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Tartare de Bœuf</span><span class="menu-entry-price">21,00 €</span></div>
-        <div class="menu-entry-desc">Haché au couteau, câpres, échalotes, jaune d'œuf, frites de pommes de terre ratte</div>
-      </div>
-      <div class="section-rule"><span>Volailles</span></div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Magret de Canard</span><span class="menu-entry-price">24,00 €</span></div>
-        <div class="menu-entry-desc">Jus aux cerises, purée de panais, légumes rôtis de saison</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Rôti Label Rouge</span><span class="menu-entry-price">19,50 €</span></div>
-        <div class="menu-entry-desc">Jus de cuisson, haricots verts à l'ail, pommes grenaille rôties</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Toast Burratta</span><span class="menu-entry-price">19,800</span></div>
+        <div class="menu-entry-desc">Sauce fromage - Burratta - Roquette - Pesto - Balsamique - Œuf poché - Café au choix - Mini jus</div>
       </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
+      <div class="section-rule"><span>Les Croissants</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Croissant Salé</span><span class="menu-entry-price">11,800</span></div>
+        <div class="menu-entry-desc">Café - Mini jus - Bresaola - Sauce fromage - Emmental - Pesto - Balsamique - Roquette ou Poulet fumé</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Croissant Salé Jambon fumé</span><span class="menu-entry-price">14,200</span></div>
+        <div class="menu-entry-desc">Sauce fromage - Jambon - Laitue - Tomate - Emmental</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Croissant Sucré</span><span class="menu-entry-price">12,000</span></div>
+        <div class="menu-entry-desc">Banane Spéculoos ou Nutella fraise - Fruit sec</div>
+      </div>
       <div class="box">
-        <div class="box-title">Suggestions du Sommelier</div>
-        <p class="body-text" style="font-size:0.66rem">Pour accompagner vos viandes rouges, notre sommelier Pierre conseille le <em>Bordeaux Château Margaux 2019</em> (38 €) ou le <em>Côtes du Rhône Villages</em> au verre (7,50 €).</p>
+        <div class="box-title">Supplément</div>
+        <p class="body-text" style="font-size:0.65rem">Café + Eau 0.5l + Mini jus · 6,000</p>
       </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="photo-box" style="height:110px;margin-top:0.4rem">
-        Illustration :<br>L'Entrecôte Grillée<br>Maison
-      </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="section-rule"><span>Accompagnements</span></div>
-      <p class="body-text" style="font-size:0.66rem">Tous nos plats sont servis avec une garniture. Suppléments : gratin dauphinois +3 €, frites maison +2,50 €, légumes vapeur +2 €.</p>
     </div>
   </div>`,
 
-  // PAGE 3 — Poissons
+  // PAGE 3 — Les Crêpes, Gaufres & Pains Perdus
   `<div class="pg-header">
     <span class="pg-num">Page III</span>
     <span>La Maison Dorée — Menu</span>
-    <span>Printemps 2026</span>
+    <span>Menu du Jour</span>
   </div>
-  <div class="headline-lg">Les Poissons & Fruits de Mer</div>
-  <div class="subhead">"Fraîcheur garantie — Arrivages quotidiens du marché de Rungis"</div>
-  <div class="cols-3">
-    <div class="col-span-2">
-      <p class="body-text drop-cap">Chaque matin, notre poissonnier sélectionne les meilleurs arrivages pour composer une carte vivante, au gré des saisons et des pêches. Nos poissons sont travaillés le jour même de leur réception.</p>
-      <div class="section-rule"><span>Poissons du Jour</span></div>
+  <div class="headline-lg">Les Crêpes & Gaufres</div>
+  <div class="subhead">"Nos délicieuses crêpes et gaufres sucrées et salées"</div>
+  <div class="cols-2">
+    <div>
+      <div class="section-rule"><span>Les Crêpes Sucrées</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Filet de Bar Sauvage</span><span class="menu-entry-price">29,00 €</span></div>
-        <div class="menu-entry-desc">Beurre blanc aux agrumes, asperges vertes, riz pilaf au safran</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crêpe Nutella</span><span class="menu-entry-price">12,600</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Saumon Rôti en Croûte d'Herbes</span><span class="menu-entry-price">22,50 €</span></div>
-        <div class="menu-entry-desc">Croûte persillée, sauce vierge aux tomates confites, pommes grenaille</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crêpe Nutella Spéculoos Fruit Sec</span><span class="menu-entry-price">17,600</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Sole Meunière</span><span class="menu-entry-price">32,00 €</span></div>
-        <div class="menu-entry-desc">Beurre noisette, citron, câpres, pommes vapeur — recette classique</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crêpe Nutella Pistachio</span><span class="menu-entry-price">17,600</span></div>
+      </div>
+      <div class="section-rule"><span>Les Gaufres</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Gaufre salé jambon fumé</span><span class="menu-entry-price">14,000</span></div>
+        <div class="menu-entry-desc">Sauce fromage, jambon fumé, emmental, œuf poché, basilique</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Dos de Cabillaud</span><span class="menu-entry-price">24,00 €</span></div>
-        <div class="menu-entry-desc">Sauce chorizo doux, polenta crémeuse, légumes rôtis</div>
-      </div>
-      <div class="section-rule"><span>Fruits de Mer</span></div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Risotto aux Fruits de Mer</span><span class="menu-entry-price">21,00 €</span></div>
-        <div class="menu-entry-desc">Crevettes, moules, coquilles Saint-Jacques, parmesan affiné, bisque légère</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Plateau de Fruits de Mer</span><span class="menu-entry-price">45,00 €</span></div>
-        <div class="menu-entry-desc">Huîtres, crevettes, bulots, tourteau — sur glace pilée · pour 2 personnes</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Moules Marinières</span><span class="menu-entry-price">16,00 €</span></div>
-        <div class="menu-entry-desc">Vin blanc, échalotes, persil frais, crème fraîche · frites maison incluses</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Gaufre Nutella</span><span class="menu-entry-price">12,600</span></div>
       </div>
     </div>
-    <div>
-      <div class="box box-double">
-        <div class="box-title">Le Saviez-Vous ?</div>
-        <p class="body-text" style="font-size:0.65rem">La sole meunière était le plat préféré de Julia Child lors de son premier repas en France. Notre recette respecte la tradition depuis plus de 30 ans.</p>
-      </div>
-      <div class="section-rule" style="margin-top:0.8rem"><span>Vins Blancs</span></div>
+    <div class="v-rule" style="padding-left:0.8rem">
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Chablis 1er Cru</span><span class="menu-entry-price">32 € / btl</span></div>
-        <div class="menu-entry-desc">Notes minérales, parfait avec les poissons fins</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Gaufre Nutella spéculoos</span><span class="menu-entry-price">13,000</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Sancerre Blanc</span><span class="menu-entry-price">36 € / btl</span></div>
-        <div class="menu-entry-desc">Sauvignon vif et fruité, idéal avec les fruits de mer</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Gaufre pistachio Nutella boule de glace</span><span class="menu-entry-price">15,300</span></div>
+      </div>
+      <div class="section-rule"><span>Pains Perdus (Sucrés)</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Pain Perdu Beurre Salé</span><span class="menu-entry-price">15,500</span></div>
+        <div class="menu-entry-desc">(Pomme ou banane) caramel - amande effilée - Boule de glace</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Pain Perdu Nutella Noisette</span><span class="menu-entry-price">16,500</span></div>
+        <div class="menu-entry-desc">Banane - Fraise - Boule de glace</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Pain Perdu Pistachio</span><span class="menu-entry-price">18,600</span></div>
+        <div class="menu-entry-desc">Pâte Pistache - Fruit Rouge - Boule de glace</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Pain Perdu Ricotta</span><span class="menu-entry-price">14,600</span></div>
+        <div class="menu-entry-desc">Miel - Ricotta - Noix - Boule de glace</div>
       </div>
     </div>
   </div>`,
 
-  // PAGE 4 — Desserts
+  // PAGE 4 — Crêpes Salées, Omelettes & Salades
   `<div class="pg-header">
     <span class="pg-num">Page IV</span>
     <span>La Maison Dorée — Menu</span>
-    <span>Printemps 2026</span>
+    <span>Menu du Jour</span>
   </div>
-  <div class="headline-lg">Les Desserts & Douceurs</div>
-  <div class="subhead">"Toutes nos pâtisseries sont confectionnées chaque matin par notre pâtissière Sophie"</div>
+  <div class="headline-lg">Crêpes Salées & Omelettes</div>
+  <div class="subhead">"Nos délicieuses crêpes salées, omelettes et salades"</div>
   <div class="cols-2">
     <div>
-      <p class="body-text drop-cap">La carte des desserts change avec les saisons et l'humeur créatrice de Sophie Bertrand, notre pâtissière depuis 2018, formée à l'école Ferrandi à Paris. Chaque dessert est une œuvre.</p>
-      <div class="section-rule"><span>Desserts Classiques</span></div>
+      <div class="section-rule"><span>Crêpes Salées</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Tarte Tatin</span><span class="menu-entry-price">9,00 €</span></div>
-        <div class="menu-entry-desc">Pommes caramélisées, pâte feuilletée inversée, crème fraîche épaisse</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crêpe Salée Thon fromage</span><span class="menu-entry-price">15,200</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Crème Brûlée à la Vanille</span><span class="menu-entry-price">8,50 €</span></div>
-        <div class="menu-entry-desc">Vanille de Tahiti, sucre roux caramélisé à la flamme, tuile dentelle</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crêpe Salée Jambon Poulet fumé</span><span class="menu-entry-price">16,200</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Fondant Chocolat Noir 70%</span><span class="menu-entry-price">10,00 €</span></div>
-        <div class="menu-entry-desc">Coulant au cœur, glace au lait d'amande, éclats de pralinés</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crêpe Spécial</span><span class="menu-entry-price">17,900</span></div>
+        <div class="menu-entry-desc">Fromage - Légume sauté - Escalope sautée - Pesto</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Île Flottante</span><span class="menu-entry-price">7,50 €</span></div>
-        <div class="menu-entry-desc">Blancs en neige, crème anglaise à la vanille, pralin croquant</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crêpe fourrée poulet Champignon</span><span class="menu-entry-price">19,800</span></div>
       </div>
-      <div class="section-rule"><span>Fromages</span></div>
+      <div class="section-rule"><span>Omelettes</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Assiette de Fromages</span><span class="menu-entry-price">12,00 €</span></div>
-        <div class="menu-entry-desc">Sélection de 3 fromages affinés, pain de campagne, confiture de cerises</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Omelette Sicilienne</span><span class="menu-entry-price">15,800</span></div>
+        <div class="menu-entry-desc">Ricotta - Jambon fumé - Champignon - Fromage</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Omelette Végétarienne</span><span class="menu-entry-price">14,000</span></div>
       </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
-      <div class="section-rule"><span>Créations du Moment</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Mille-Feuille de Saison</span><span class="menu-entry-price">11,00 €</span></div>
-        <div class="menu-entry-desc">Feuilletage caramélisé, crème mousseline à la fraise, fraises fraîches</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Omelette Thon</span><span class="menu-entry-price">15,800</span></div>
+      </div>
+      <div class="section-rule"><span>Les Salades</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Salade César</span><span class="menu-entry-price">19,500</span></div>
+        <div class="menu-entry-desc">Laitue - Tomate cerise - Escalope - Noix - Croton - Parmesan - Sauce César</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Paris-Brest Revisité</span><span class="menu-entry-price">10,50 €</span></div>
-        <div class="menu-entry-desc">Pâte à choux, crème pralinée légère, noisettes torréfiées</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Sorbet du Marché</span><span class="menu-entry-price">6,50 €</span></div>
-        <div class="menu-entry-desc">Fruit de saison, coulis maison — demandez la saveur du jour</div>
-      </div>
-      <div class="ornament" style="margin:0.7rem 0">— ✦ —</div>
-      <div class="box">
-        <div class="box-title">Vins Doux & Digestifs</div>
-        <p class="body-text" style="font-size:0.65rem">Sauternes au verre · 8 €<br>Armagnac Hors d'âge · 12 €<br>Cognac V.S.O.P. · 10 €<br>Calvados Pays d'Auge · 9 €<br>Porto Vintage · 8 €</p>
+        <div class="menu-entry-head"><span class="menu-entry-name">Salade Burrata</span><span class="menu-entry-price">20,900</span></div>
       </div>
     </div>
   </div>`,
 
-  // PAGE 5 — Boissons
+  // PAGE 5 — Pasta & Pizzas
   `<div class="pg-header">
     <span class="pg-num">Page V</span>
-    <span>La Maison Dorée — Boissons</span>
-    <span>Printemps 2026</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Menu du Jour</span>
   </div>
-  <div class="headline-lg">La Cave & Les Boissons</div>
-  <div class="subhead">"Une sélection de vins soigneusement constituée par notre sommelier"</div>
-  <div class="cols-3">
+  <div class="headline-lg">Pasta & Pizzas</div>
+  <div class="subhead">"Nos délicieuses pasta et pizzas préparées avec amour"</div>
+  <div class="cols-2">
     <div>
-      <div class="section-rule"><span>Vins Rouges</span></div>
+      <div class="section-rule"><span>Pasta</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Bordeaux 2019</span><span class="menu-entry-price">38 €</span></div>
-        <div class="menu-entry-desc">Château Margaux · Cassis, vanille, tanins soyeux</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Puttanesca</span><span class="menu-entry-price">16,800</span></div>
+        <div class="menu-entry-desc">Thon - Olive - Câpre - Persil - Basilique - Sauce tomate - Parmesan</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Bourgogne Pinot Noir</span><span class="menu-entry-price">32 €</span></div>
-        <div class="menu-entry-desc">Gevrey-Chambertin 2020 · Cerise, épices douces</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Pesto</span><span class="menu-entry-price">23,500</span></div>
+        <div class="menu-entry-desc">Sauce pesto - Huile d'olive - Noix - Parmesan</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Côtes du Rhône</span><span class="menu-entry-price">22 €</span></div>
-        <div class="menu-entry-desc">Villages 2021 · Grenache, Syrah · fruits noirs</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Alfredo</span><span class="menu-entry-price">18,900</span></div>
+        <div class="menu-entry-desc">Sauce blanche - Champignon - Escalope - Parmesan</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Au verre</span><span class="menu-entry-price">7,50 €</span></div>
-        <div class="menu-entry-desc">Demandez notre sélection du jour</div>
-      </div>
-    </div>
-    <div class="v-rule" style="padding-left:0.6rem">
-      <div class="section-rule"><span>Vins Blancs</span></div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Chablis 1er Cru</span><span class="menu-entry-price">32 €</span></div>
-        <div class="menu-entry-desc">Mineral, citrus · parfait avec poissons</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Sancerre 2022</span><span class="menu-entry-price">36 €</span></div>
-        <div class="menu-entry-desc">Sauvignon vif · fruits de mer</div>
-      </div>
-      <div class="section-rule"><span>Rosé & Bulles</span></div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Rosé Provence</span><span class="menu-entry-price">26 €</span></div>
-        <div class="menu-entry-desc">Léger, frais · 2023</div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Champagne Brut</span><span class="menu-entry-price">55 €</span></div>
-        <div class="menu-entry-desc">Maison Taittinger · Flûte 12 €</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Crevette</span><span class="menu-entry-price">26,000</span></div>
+        <div class="menu-entry-desc">Sauce au choix - Basilique - Parmesan</div>
       </div>
     </div>
-    <div class="v-rule" style="padding-left:0.6rem">
-      <div class="section-rule"><span>Softs & Cafés</span></div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="section-rule"><span>Pizzas</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Limonade Maison</span><span class="menu-entry-price">5,50 €</span></div>
-        <div class="menu-entry-desc">Citron, gingembre, fleur de sureau</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Margarita</span><span class="menu-entry-price">16,500</span></div>
+        <div class="menu-entry-desc">Sauce tomate - Fromage - Basilique - Olive - Piment</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Eau minérale</span><span class="menu-entry-price">3,50 €</span></div>
-        <div class="menu-entry-desc">Plate ou gazeuse · 75cl</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Thon</span><span class="menu-entry-price">19,000</span></div>
+        <div class="menu-entry-desc">Sauce tomate - Fromage - Thon - Olive - Piment - Basilique</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Jus de fruits frais</span><span class="menu-entry-price">6,00 €</span></div>
-        <div class="menu-entry-desc">Pressé à la commande</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Al Polo</span><span class="menu-entry-price">22,300</span></div>
+        <div class="menu-entry-desc">Sauce tomate - Fromage - Champignon - Escalope - Basilique</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Café Espresso</span><span class="menu-entry-price">3,50 €</span></div>
-        <div class="menu-entry-desc">Grains torréfiés artisanalement</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Végétarienne</span><span class="menu-entry-price">17,500</span></div>
+        <div class="menu-entry-desc">Poivre - Tomate - Oignon - Fromage - Champignon - Aubergine - Olive - Basilique</div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Cocktail Maison</span><span class="menu-entry-price">9,00 €</span></div>
-        <div class="menu-entry-desc">Varie selon saison · sans alcool dispo</div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Burrata</span><span class="menu-entry-price">24,300</span></div>
+        <div class="menu-entry-desc">Fromage</div>
       </div>
     </div>
   </div>`,
 
-  // PAGE 6 — Menus / Formules
+  // PAGE 6 — Les Plats & Sandwichs
   `<div class="pg-header">
     <span class="pg-num">Page VI</span>
-    <span>La Maison Dorée — Formules</span>
-    <span>Printemps 2026</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Menu du Jour</span>
   </div>
-  <div class="headline-lg">Nos Formules & Menus</div>
-  <div class="subhead">"Des menus soigneusement composés pour tous les moments de la journée"</div>
+  <div class="headline-lg">Les Plats & Sandwichs</div>
+  <div class="subhead">"Nos délicieux plats principaux et sandwichs"</div>
   <div class="cols-2">
     <div>
-      <div class="box box-double">
-        <div class="box-title">Menu Déjeuner — 28 €</div>
-        <p class="body-text" style="margin-bottom:6px">Servi uniquement le midi, du mardi au vendredi.</p>
-        <p class="body-text">Entrée + Plat <em>ou</em> Plat + Dessert au choix parmi une sélection du marché. Café offert.</p>
+      <div class="section-rule"><span>Les Plats</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Grillé</span><span class="menu-entry-price">22,800</span></div>
       </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="box box-double">
-        <div class="box-title">Menu Découverte — 45 €</div>
-        <p class="body-text">Entrée + Plat + Dessert au choix dans la carte complète. Un verre de vin sélectionné par notre sommelier inclus.</p>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Sauce Champignon</span><span class="menu-entry-price">24,200</span></div>
       </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="box box-double">
-        <div class="box-title">Menu Gastronomique — 68 €</div>
-        <p class="body-text">5 services : Amuse-bouche · Entrée · Poisson <em>ou</em> Viande · Pré-dessert · Dessert. Accord mets-vins disponible +35 €.</p>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Panné</span><span class="menu-entry-price">26,200</span></div>
+      </div>
+      <div class="section-rule"><span>Sandwichs & Makloub</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Thon</span><span class="menu-entry-price">13,200</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Escalope Grillée ou Panée</span><span class="menu-entry-price">13,200</span></div>
       </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
-      <div class="box">
-        <div class="box-title">Groupes & Événements</div>
-        <p class="body-text" style="font-size:0.68rem">La Maison Dorée propose une salle privatisable pour vos événements privés et professionnels jusqu'à 40 convives. Menus sur mesure disponibles. Contactez-nous au +49 6421 123 456.</p>
+      <div class="section-rule"><span>Ciabatta</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Escalope Grillée ou Panée</span><span class="menu-entry-price">13,200</span></div>
       </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="box">
-        <div class="box-title">Allergènes</div>
-        <p class="body-text" style="font-size:0.65rem">Notre équipe est formée pour répondre à toutes vos questions concernant les allergènes et les régimes alimentaires. N'hésitez pas à informer votre serveur de vos intolérances.</p>
-      </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="box">
-        <div class="box-title">Notre Engagement</div>
-        <p class="body-text" style="font-size:0.65rem">100% des légumes proviennent de producteurs locaux (rayon de 80 km). Nos viandes sont issues d'élevages certifiés bien-être animal. Poissons labellisés MSC.</p>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Thon</span><span class="menu-entry-price">13,200</span></div>
       </div>
     </div>
   </div>`,
 
-  // PAGE 7 — Histoire & Ambiance
+  // PAGE 7 — Desserts & Boissons
   `<div class="pg-header">
     <span class="pg-num">Page VII</span>
-    <span>La Maison Dorée — Notre Histoire</span>
-    <span>Fondée en 1887</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Menu du Jour</span>
   </div>
-  <div class="headline-xl" style="font-size:1.8rem">L'Histoire de<br>La Maison Dorée</div>
-  <div class="subhead">"Plus de 135 ans de passion pour la cuisine française"</div>
+  <div class="headline-lg">Desserts & Boissons</div>
+  <div class="subhead">"Nos délicieux desserts et boissons pour terminer votre repas"</div>
   <div class="cols-2">
     <div>
-      <p class="body-text drop-cap">Fondée en 1887 par Henri Beaumont, ancien cuisinier de la cour impériale, La Maison Dorée s'est imposée comme l'une des tables incontournables de Marburg depuis plus d'un siècle. Traversant les guerres, les crises et les révolutions culinaires, elle a su conserver son âme et son identité.</p>
-      <div class="ornament">— ✦ —</div>
-      <p class="body-text">Sous la direction de la famille Beaumont pendant trois générations, puis reprise en 2010 par l'entrepreneur passionné Marc Delacroix, la maison a connu une renaissance tout en restant fidèle à ses valeurs fondatrices : produits de qualité, service attentionné, et une cuisine qui fait voyager.</p>
-      <div class="ornament">— ✦ —</div>
-      <p class="body-text">Aujourd'hui, le chef Arnaud Leclerc perpétue cette tradition avec un regard résolument moderne, revisitant les classiques français avec les techniques contemporaines qu'il a acquises dans les grandes maisons étoilées de Paris et de Lyon.</p>
+      <div class="section-rule"><span>Desserts</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Cheese Cake</span><span class="menu-entry-price">12,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Tiramisu</span><span class="menu-entry-price">12,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Fondant au chocolat + Boule de glace</span><span class="menu-entry-price">8,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Gâteau au choix</span><span class="menu-entry-price">12,000</span></div>
+      </div>
+      <div class="section-rule"><span>Suppléments</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Burrata</span><span class="menu-entry-price">6,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Poulet fumé</span><span class="menu-entry-price">4,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Œuf Poché</span><span class="menu-entry-price">2,000</span></div>
+      </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
-      <div class="photo-box" style="height:130px">
-        Photographie :<br>La Maison Dorée<br>Circa 1912
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Emmental</span><span class="menu-entry-price">4,000</span></div>
       </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="section-rule"><span>Distinctions</span></div>
-      <p class="body-text" style="font-size:0.68rem"><strong>1923</strong> — Premier Prix du Guide Michelin, région Hesse<br><br><strong>1961</strong> — Médaille d'Or, Concours de Gastronomie Française<br><br><strong>2018</strong> — Bib Gourmand Michelin<br><br><strong>2023</strong> — "Meilleur Restaurant de Marburg" — Frankfurter Allgemeine<br><br><strong>2025</strong> — Sélectionné parmi les 50 meilleures brasseries d'Allemagne</p>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Frites</span><span class="menu-entry-price">5,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Nutella</span><span class="menu-entry-price">4,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Fruit Sec</span><span class="menu-entry-price">4,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Nestle</span><span class="menu-entry-price">2,000</span></div>
+      </div>
+      <div class="section-rule"><span>Boissons</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Eau 1L</span><span class="menu-entry-price">3,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Eau 0.5L</span><span class="menu-entry-price">2,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Soda</span><span class="menu-entry-price">4,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Boisson énergétique</span><span class="menu-entry-price">9,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Chicha au choix</span><span class="menu-entry-price">12,000</span></div>
+      </div>
     </div>
   </div>`,
 
-  // PAGE 8 — Contact / Quatrième de couverture
+  // PAGE 8 — Jus & Smoothies & Mojitos
   `<div class="pg-header">
     <span class="pg-num">Page VIII</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Menu du Jour</span>
+  </div>
+  <div class="headline-lg">Jus & Smoothies</div>
+  <div class="subhead">"Nos délicieux jus frais et smoothies"</div>
+  <div class="cols-2">
+    <div>
+      <div class="section-rule"><span>Jus</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Oronge</span><span class="menu-entry-price">7,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Citron</span><span class="menu-entry-price">7,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Fraise</span><span class="menu-entry-price">9,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Banane</span><span class="menu-entry-price">11,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Sunshine (datte banane)</span><span class="menu-entry-price">13,600</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Jus journal</span><span class="menu-entry-price">15,800</span></div>
+        <div class="menu-entry-desc">datte banane f.secs boule de glace</div>
+      </div>
+      <div class="section-rule"><span>Smoothie</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie pêche banane</span><span class="menu-entry-price">12,200</span></div>
+      </div>
+    </div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie fraise banane</span><span class="menu-entry-price">12,200</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie Pina colada</span><span class="menu-entry-price">12,200</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie exotiques</span><span class="menu-entry-price">12,200</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie fraise</span><span class="menu-entry-price">12,200</span></div>
+      </div>
+      <div class="section-rule"><span>Mojito</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Virgin</span><span class="menu-entry-price">8,800</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Red</span><span class="menu-entry-price">9,200</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Blue</span><span class="menu-entry-price">9,200</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Énergétique</span><span class="menu-entry-price">12,800</span></div>
+      </div>
+    </div>
+  </div>`,
+
+  // PAGE 9 — Thé & Frappuccino & Chocolat chaud
+  `<div class="pg-header">
+    <span class="pg-num">Page IX</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Menu du Jour</span>
+  </div>
+  <div class="headline-lg">Thé & Frappuccino</div>
+  <div class="subhead">"Nos délicieux thés, frappuccinos et chocolats chauds"</div>
+  <div class="cols-2">
+    <div>
+      <div class="section-rule"><span>Thé</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Thé à la menthe</span><span class="menu-entry-price">3,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Thé au amandes</span><span class="menu-entry-price">6,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Thé au pignons</span><span class="menu-entry-price">8,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Thé infusion au choix</span><span class="menu-entry-price">4,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Ice tea au choix</span><span class="menu-entry-price">8,400</span></div>
+      </div>
+      <div class="section-rule"><span>Frappuccino</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Frappuccino Nutella</span><span class="menu-entry-price">13,400</span></div>
+      </div>
+    </div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Frappuccino caramel</span><span class="menu-entry-price">13,400</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Frappuccino burre de cacahuètes</span><span class="menu-entry-price">12,300</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Frappuccino noisette</span><span class="menu-entry-price">13,400</span></div>
+      </div>
+      <div class="section-rule"><span>Chocolat chaud</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Chocolat chaud</span><span class="menu-entry-price">7,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Nutella</span><span class="menu-entry-price">9,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Caramel</span><span class="menu-entry-price">9,500</span></div>
+      </div>
+    </div>
+  </div>`,
+
+  // PAGE 10 — Café & Latté
+  `<div class="pg-header">
+    <span class="pg-num">Page X</span>
     <span>La Maison Dorée</span>
     <span>Nous Trouver</span>
   </div>
   <div style="text-align:center;margin-bottom:0.8rem">
-    <div class="headline-lg" style="text-align:center">Venez Nous Rendre Visite</div>
+    <div class="headline-lg" style="text-align:center">Café & Latté</div>
     <div style="font-size:0.7rem;font-style:italic;color:var(--ink-faded);margin-top:3px">« Une table, une histoire, un souvenir pour toujours »</div>
   </div>
   <hr class="double">
   <div class="cols-2">
     <div>
-      <div class="section-rule"><span>Adresse & Accès</span></div>
-      <p class="body-text">La Maison Dorée<br>12 Barfüßerstraße<br>35037 Marburg an der Lahn<br>Hesse, Allemagne</p>
-      <div class="ornament">— ✦ —</div>
-      <div class="section-rule"><span>Horaires</span></div>
-      <p class="body-text">Mardi – Vendredi : 12h00 – 14h30 / 19h00 – 22h30<br>Samedi : 12h00 – 15h00 / 19h00 – 23h00<br>Dimanche : 12h00 – 16h00 (brunch)<br>Lundi : Fermé</p>
-      <div class="ornament">— ✦ —</div>
-      <div class="section-rule"><span>Contact</span></div>
-      <p class="body-text">Téléphone : +49 6421 123 456<br>Email : reservations@lamaisondoree.de<br>Site : www.lamaisondoree.de</p>
+      <div class="section-rule"><span>Café</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Expresso</span><span class="menu-entry-price">4,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Amarican</span><span class="menu-entry-price">4,000</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Cappicn</span><span class="menu-entry-price">4,200</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Grande tasse</span><span class="menu-entry-price">4,400</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Creme</span><span class="menu-entry-price">4,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Gande crème</span><span class="menu-entry-price">4,800</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Chaucolat au lait</span><span class="menu-entry-price">4,500</span></div>
+      </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
-      <div class="photo-box" style="height:120px">
-        Plan d'accès<br>Marburg an der Lahn<br>Vieille ville historique
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Express Nespresso</span><span class="menu-entry-price">5,500</span></div>
       </div>
-      <div class="ornament">— ✦ —</div>
-      <div class="box box-double">
-        <div class="box-title">Réservations</div>
-        <p class="body-text" style="font-size:0.66rem">Réservations recommandées, particulièrement le week-end. Groupes dès 8 personnes : merci de nous contacter directement pour un devis personnalisé.</p>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">American nesp</span><span class="menu-entry-price">5,700</span></div>
       </div>
-      <div class="ornament" style="margin-top:0.8rem">— ✦ —</div>
-      <div style="text-align:center;margin-top:0.5rem">
-        <div style="font-family:'UnifrakturMaguntia',cursive;font-size:1.4rem;color:var(--ink)">La Maison Dorée</div>
-        <div style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--ink-faded);font-family:'Libre Baskerville',serif">Fondée en 1887</div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Cappuccin nesp</span><span class="menu-entry-price">5,900</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Creme nesp</span><span class="menu-entry-price">6,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Cafe Turc</span><span class="menu-entry-price">5,900</span></div>
+      </div>
+      <div class="section-rule"><span>Latté</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Caramel</span><span class="menu-entry-price">8,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Nutella</span><span class="menu-entry-price">8,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Noisette</span><span class="menu-entry-price">8,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Vanille</span><span class="menu-entry-price">8,500</span></div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Burre de cacahuètes</span><span class="menu-entry-price">8,500</span></div>
       </div>
     </div>
   </div>
   <hr class="double" style="margin-top:0.8rem">
-  <p class="body-text" style="text-align:center;font-size:0.6rem;margin-top:0.4rem;color:var(--ink-faded)">© La Maison Dorée · Tous droits réservés · Menu valable jusqu'au 30 Juin 2026 · Prix TTC, service compris</p>`
+  <p class="body-text" style="text-align:center;font-size:0.6rem;margin-top:0.4rem;color:var(--ink-faded)">© La Maison Dorée · Tous droits réservés · Menu valable</p>`
 ];
 
 let currentPage = 0;
@@ -890,13 +985,11 @@ function render() {
   isMobile = isMobileView();
   
   if (isMobile) {
-    // Single page view
     document.getElementById('leftContent').innerHTML = pages[currentPage] || '';
     document.getElementById('rightPage').style.display = 'none';
     document.querySelector('.spine').style.display = 'none';
     document.getElementById('pageIndicator').textContent = `Page ${currentPage + 1} sur ${totalPages}`;
   } else {
-    // Two page spread
     document.getElementById('rightPage').style.display = '';
     document.querySelector('.spine').style.display = '';
     const l = Math.floor(currentPage / 2) * 2;
@@ -915,33 +1008,14 @@ function turnPage(dir) {
   
   const lp = document.getElementById('leftPage');
   const rp = document.getElementById('rightPage');
-  const pageEl = document.getElementById('leftContent');
   
   if (isMobile) {
     if (dir === 1 && currentPage < totalPages - 1) {
-      pageEl.classList.add('fade-out-left');
-      setTimeout(() => {
-        currentPage++;
-        pageEl.innerHTML = pages[currentPage] || '';
-        pageEl.classList.remove('fade-out-left');
-        pageEl.classList.add('fade-in');
-        setTimeout(() => {
-          pageEl.classList.remove('fade-in');
-          render();
-        }, 300);
-      }, 300);
+      currentPage++;
+      render();
     } else if (dir === -1 && currentPage > 0) {
-      pageEl.classList.add('fade-out-right');
-      setTimeout(() => {
-        currentPage--;
-        pageEl.innerHTML = pages[currentPage] || '';
-        pageEl.classList.remove('fade-out-right');
-        pageEl.classList.add('fade-in-left');
-        setTimeout(() => {
-          pageEl.classList.remove('fade-in-left');
-          render();
-        }, 300);
-      }, 300);
+      currentPage--;
+      render();
     }
   } else {
     if (dir === 1 && currentPage < totalPages - 2) {
@@ -962,11 +1036,9 @@ function turnPage(dir) {
   }
 }
 
-// Click zone handlers
 document.getElementById('clickZoneLeft').addEventListener('click', () => turnPage(-1));
 document.getElementById('clickZoneRight').addEventListener('click', () => turnPage(1));
 
-// Handle window resize
 window.addEventListener('resize', () => {
   render();
 });
