@@ -90,6 +90,27 @@
     position:relative;
     overflow:hidden;
     box-shadow: inset -4px 0 8px rgba(0,0,0,0.08);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .page.fade-out-left {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  
+  .page.fade-out-right {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  
+  .page.fade-in {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  
+  .page.fade-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
   }
   .page-wrap.is-right .page{
     box-shadow: inset 4px 0 8px rgba(0,0,0,0.08);
@@ -380,9 +401,39 @@
     height:3px;
   }
 
-  @media(max-width:600px){
+  /* Click zones for mobile navigation */
+  .click-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 100;
+    cursor: pointer;
+  }
+  .click-zone-left {
+    left: 0;
+  }
+  .click-zone-right {
+    right: 0;
+  }
+
+  @media(max-width:768px){
     .cols-2,.cols-3{grid-template-columns:1fr}
     .col-span-2,.col-span-3{grid-column:span 1}
+    
+    /* Single page view on mobile */
+    .spine{
+      display: none;
+    }
+    .page-wrap{
+      width: 100%;
+    }
+    .page-wrap.is-right{
+      display: none;
+    }
+    .page{
+      min-height: auto;
+    }
   }
 </style>
 </head>
@@ -395,6 +446,10 @@
 
 <div class="book-wrap">
   <div class="book" id="book">
+    <!-- Click zones for mobile navigation -->
+    <div class="click-zone click-zone-left" id="clickZoneLeft"></div>
+    <div class="click-zone click-zone-right" id="clickZoneRight"></div>
+    
     <!-- LEFT PAGE -->
     <div class="page-wrap" id="leftPage">
       <div class="page" id="leftContent"></div>
@@ -823,39 +878,98 @@ const pages = [
   <p class="body-text" style="text-align:center;font-size:0.6rem;margin-top:0.4rem;color:var(--ink-faded)">© La Maison Dorée · Tous droits réservés · Menu valable jusqu'au 30 Juin 2026 · Prix TTC, service compris</p>`
 ];
 
-let currentSpread = 0; // 0 = pages 0-1, 1 = pages 2-3, etc.
-const totalSpreads = Math.ceil(pages.length / 2);
+let currentPage = 0;
+const totalPages = pages.length;
+let isMobile = window.innerWidth <= 768;
+
+function isMobileView() {
+  return window.innerWidth <= 768;
+}
 
 function render() {
-  const l = currentSpread * 2;
-  const r = l + 1;
-  document.getElementById('leftContent').innerHTML = pages[l] || '';
-  document.getElementById('rightContent').innerHTML = pages[r] || '';
-  document.getElementById('prevBtn').disabled = currentSpread === 0;
-  document.getElementById('nextBtn').disabled = currentSpread >= totalSpreads - 1;
-  document.getElementById('pageIndicator').textContent =
-    `Pages ${l+1} – ${Math.min(r+1, pages.length)} sur ${pages.length}`;
+  isMobile = isMobileView();
+  
+  if (isMobile) {
+    // Single page view
+    document.getElementById('leftContent').innerHTML = pages[currentPage] || '';
+    document.getElementById('rightPage').style.display = 'none';
+    document.querySelector('.spine').style.display = 'none';
+    document.getElementById('pageIndicator').textContent = `Page ${currentPage + 1} sur ${totalPages}`;
+  } else {
+    // Two page spread
+    document.getElementById('rightPage').style.display = '';
+    document.querySelector('.spine').style.display = '';
+    const l = Math.floor(currentPage / 2) * 2;
+    const r = l + 1;
+    document.getElementById('leftContent').innerHTML = pages[l] || '';
+    document.getElementById('rightContent').innerHTML = pages[r] || '';
+    document.getElementById('pageIndicator').textContent = `Pages ${l+1} – ${Math.min(r+1, totalPages)} sur ${totalPages}`;
+  }
+  
+  document.getElementById('prevBtn').disabled = (isMobile && currentPage === 0) || (!isMobile && currentPage < 2);
+  document.getElementById('nextBtn').disabled = (isMobile && currentPage >= totalPages - 1) || (!isMobile && currentPage >= totalPages - 2);
 }
 
 function turnPage(dir) {
+  isMobile = isMobileView();
+  
   const lp = document.getElementById('leftPage');
   const rp = document.getElementById('rightPage');
-  if (dir === 1 && currentSpread < totalSpreads - 1) {
-    rp.classList.add('flipping-left');
-    setTimeout(() => {
-      rp.classList.remove('flipping-left');
-      currentSpread++;
-      render();
-    }, 400);
-  } else if (dir === -1 && currentSpread > 0) {
-    lp.classList.add('flipping-right');
-    setTimeout(() => {
-      lp.classList.remove('flipping-right');
-      currentSpread--;
-      render();
-    }, 400);
+  const pageEl = document.getElementById('leftContent');
+  
+  if (isMobile) {
+    if (dir === 1 && currentPage < totalPages - 1) {
+      pageEl.classList.add('fade-out-left');
+      setTimeout(() => {
+        currentPage++;
+        pageEl.innerHTML = pages[currentPage] || '';
+        pageEl.classList.remove('fade-out-left');
+        pageEl.classList.add('fade-in');
+        setTimeout(() => {
+          pageEl.classList.remove('fade-in');
+          render();
+        }, 300);
+      }, 300);
+    } else if (dir === -1 && currentPage > 0) {
+      pageEl.classList.add('fade-out-right');
+      setTimeout(() => {
+        currentPage--;
+        pageEl.innerHTML = pages[currentPage] || '';
+        pageEl.classList.remove('fade-out-right');
+        pageEl.classList.add('fade-in-left');
+        setTimeout(() => {
+          pageEl.classList.remove('fade-in-left');
+          render();
+        }, 300);
+      }, 300);
+    }
+  } else {
+    if (dir === 1 && currentPage < totalPages - 2) {
+      rp.classList.add('flipping-left');
+      setTimeout(() => {
+        rp.classList.remove('flipping-left');
+        currentPage += 2;
+        render();
+      }, 400);
+    } else if (dir === -1 && currentPage > 0) {
+      lp.classList.add('flipping-right');
+      setTimeout(() => {
+        lp.classList.remove('flipping-right');
+        currentPage -= 2;
+        render();
+      }, 400);
+    }
   }
 }
+
+// Click zone handlers
+document.getElementById('clickZoneLeft').addEventListener('click', () => turnPage(-1));
+document.getElementById('clickZoneRight').addEventListener('click', () => turnPage(1));
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  render();
+});
 
 render();
 </script>
