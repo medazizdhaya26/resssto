@@ -1,0 +1,12 @@
+{
+  "name": "la-maison-doree-menu",
+  "version": "1.0.0",
+  "description": "La Maison Dorée - Restaurant Menu",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step needed for static site'"
+  },
+  "keywords": ["restaurant", "menu", "vercel"],
+  "author": "",
+  "license": "MIT"
+}

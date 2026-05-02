@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Maison Dorée — Menu Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --paper:#f2e8d0;
+    --paper-dark:#e8dcc0;
+    --ink:#1a1208;
+    --ink-light:#3a2e1a;
+    --ink-faded:#6b5a3a;
+    --rule:#2a1f08;
+    --accent:#8b1a1a;
+  }
+
+  body{
+    background: #2c2016;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:2rem 1rem;
+    font-family:'IM Fell English',serif;
+  }
+
+  /* MASTHEAD above book */
+  .masthead{
+    text-align:center;
+    margin-bottom:0.8rem;
+    color:#c8a96e;
+  }
+  .masthead-title{
+    font-family:'UnifrakturMaguntia',cursive;
+    font-size:clamp(1.6rem,4vw,2.8rem);
+    letter-spacing:2px;
+    line-height:1.1;
+    text-shadow:0 0 20px rgba(200,169,110,0.4);
+  }
+  .masthead-sub{
+    font-family:'Libre Baskerville',serif;
+    font-size:0.7rem;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:#a08050;
+    margin-top:0.2rem;
+  }
+
+  /* BOOK CONTAINER */
+  .book-wrap{
+    perspective:2000px;
+    width:min(960px, 98vw);
+  }
+
+  .book{
+    display:flex;
+    width:100%;
+    position:relative;
+  }
+
+  /* Individual page */
+  .page-wrap{
+    width:50%;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform 0.8s cubic-bezier(0.645,0.045,0.355,1.000);
+    transform-origin: right center;
+  }
+  .page-wrap.is-right{
+    transform-origin:left center;
+  }
+  .page-wrap.flipping-left{
+    transform: rotateY(-180deg);
+    z-index:10;
+  }
+  .page-wrap.flipping-right{
+    transform: rotateY(180deg);
+    z-index:10;
+  }
+
+  .page{
+    background:var(--paper);
+    min-height:700px;
+    padding:1.2rem;
+    position:relative;
+    overflow:hidden;
+    box-shadow: inset -4px 0 8px rgba(0,0,0,0.08);
+  }
+  .page-wrap.is-right .page{
+    box-shadow: inset 4px 0 8px rgba(0,0,0,0.08);
+  }
+
+  /* Paper texture via repeating dots */
+  .page::before{
+    content:'';
+    position:absolute;inset:0;
+    background-image: radial-gradient(circle, rgba(139,110,50,0.08) 1px, transparent 1px);
+    background-size:4px 4px;
+    pointer-events:none;z-index:0;
+  }
+  .page > *{position:relative;z-index:1;}
+
+  /* Spine shadow */
+  .spine{
+    width:20px;
+    background: linear-gradient(to right, #1a1208, #3a2e1a 40%, #2a2010 60%, #1a1208);
+    flex-shrink:0;
+    align-self:stretch;
+    position:relative;z-index:5;
+    box-shadow:0 0 15px rgba(0,0,0,0.5);
+  }
+
+  /* PAGE HEADER (paper top bar) */
+  .pg-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:2px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:3px 0;
+    margin-bottom:0.8rem;
+    font-family:'Libre Baskerville',serif;
+    font-size:0.6rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--ink-faded);
+  }
+  .pg-num{font-weight:700;color:var(--ink)}
+
+  /* MASTHEAD inside page 1 */
+  .inner-masthead{
+    text-align:center;
+    border-bottom:3px double var(--rule);
+    padding-bottom:0.6rem;
+    margin-bottom:0.7rem;
+  }
+  .inner-masthead .paper-name{
+    font-family:'UnifrakturMaguntia',cursive;
+    font-size:clamp(1.4rem,4vw,2.4rem);
+    color:var(--ink);
+    line-height:1;
+  }
+  .inner-masthead .paper-meta{
+    font-size:0.6rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ink-faded);
+    margin-top:2px;
+    font-family:'Libre Baskerville',serif;
+  }
+  .inner-masthead .paper-tagline{
+    font-size:0.75rem;
+    font-style:italic;
+    color:var(--ink-light);
+    margin-top:3px;
+    border-top:1px solid var(--rule);
+    padding-top:3px;
+  }
+
+  /* COLUMN LAYOUTS */
+  .cols-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+  .cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem}
+  .col-span-2{grid-column:span 2}
+  .col-span-3{grid-column:span 3}
+
+  /* VERTICAL RULES */
+  .v-rule{border-left:1px solid var(--rule)}
+
+  /* HEADLINE STYLES */
+  .headline-xl{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.4rem,3vw,2.2rem);
+    font-weight:900;
+    line-height:1.05;
+    color:var(--ink);
+    text-transform:uppercase;
+  }
+  .headline-lg{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1rem,2.2vw,1.5rem);
+    font-weight:700;
+    line-height:1.1;
+    color:var(--ink);
+  }
+  .headline-md{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(0.85rem,1.8vw,1.1rem);
+    font-weight:700;
+    line-height:1.2;
+    color:var(--ink);
+  }
+  .headline-sm{
+    font-family:'Playfair Display',serif;
+    font-size:0.85rem;
+    font-weight:700;
+    line-height:1.2;
+    color:var(--ink);
+    font-style:italic;
+  }
+  .kicker{
+    font-family:'Libre Baskerville',serif;
+    font-size:0.6rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:2px;
+  }
+  .subhead{
+    font-family:'IM Fell English',serif;
+    font-style:italic;
+    font-size:0.78rem;
+    color:var(--ink-faded);
+    margin-top:3px;
+    margin-bottom:6px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:4px;
+  }
+
+  /* BODY TEXT */
+  .body-text{
+    font-family:'IM Fell English',serif;
+    font-size:0.72rem;
+    line-height:1.55;
+    color:var(--ink-light);
+    text-align:justify;
+    hyphens:auto;
+  }
+  .drop-cap::first-letter{
+    font-family:'Playfair Display',serif;
+    font-size:3em;
+    float:left;
+    line-height:0.75;
+    margin:0.05em 0.06em 0 0;
+    color:var(--ink);
+    font-weight:900;
+  }
+
+  /* MENU ITEM in newspaper style */
+  .menu-entry{margin-bottom:0.5rem}
+  .menu-entry-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-bottom:1px dotted #9a8060;
+    padding-bottom:1px;
+    margin-bottom:2px;
+  }
+  .menu-entry-name{
+    font-family:'Playfair Display',serif;
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .menu-entry-price{
+    font-family:'Libre Baskerville',serif;
+    font-size:0.72rem;
+    color:var(--accent);
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .menu-entry-desc{
+    font-size:0.66rem;
+    font-style:italic;
+    color:var(--ink-faded);
+    line-height:1.4;
+    font-family:'IM Fell English',serif;
+  }
+
+  /* SECTION RULE */
+  .section-rule{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    margin:0.6rem 0 0.5rem;
+  }
+  .section-rule::before,.section-rule::after{
+    content:'';flex:1;height:1px;background:var(--rule);
+  }
+  .section-rule span{
+    font-family:'Libre Baskerville',serif;
+    font-size:0.6rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--ink);
+    white-space:nowrap;
+    padding:0 4px;
+  }
+
+  /* BOX / ADVERTORIAL */
+  .box{
+    border:1.5px solid var(--rule);
+    padding:0.5rem 0.6rem;
+    margin:0.6rem 0;
+    position:relative;
+  }
+  .box-double{border:2px double var(--rule)}
+  .box-title{
+    font-family:'Playfair Display',serif;
+    font-size:0.8rem;
+    font-weight:700;
+    text-align:center;
+    background:var(--ink);
+    color:var(--paper);
+    padding:2px 6px;
+    margin:-0.5rem -0.6rem 0.4rem;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  /* HR ORNAMENT */
+  .ornament{
+    text-align:center;
+    color:var(--ink-faded);
+    font-size:0.75rem;
+    letter-spacing:4px;
+    margin:0.4rem 0;
+  }
+
+  /* PHOTO PLACEHOLDER */
+  .photo-box{
+    background:var(--paper-dark);
+    border:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.6rem;
+    font-style:italic;
+    color:var(--ink-faded);
+    font-family:'Libre Baskerville',serif;
+    text-align:center;
+    line-height:1.4;
+    padding:0.5rem;
+  }
+
+  /* PAGE TURN BUTTONS */
+  .controls{
+    display:flex;
+    justify-content:center;
+    gap:1.5rem;
+    margin-top:1rem;
+  }
+  .ctrl-btn{
+    background:none;
+    border:1px solid #a08050;
+    color:#c8a96e;
+    font-family:'Libre Baskerville',serif;
+    font-size:0.75rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    padding:0.4rem 1.2rem;
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+  .ctrl-btn:hover{background:#a08050;color:#1a1208}
+  .ctrl-btn:disabled{opacity:0.3;cursor:default}
+
+  .page-indicator{
+    text-align:center;
+    color:#a08050;
+    font-family:'Libre Baskerville',serif;
+    font-size:0.65rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-top:0.6rem;
+  }
+
+  hr.thin{border:none;border-top:1px solid var(--rule);margin:0.4rem 0}
+  hr.thick{border:none;border-top:2.5px solid var(--rule);margin:0.4rem 0}
+  hr.double{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:0.4rem 0;
+    padding-top:2px;
+    border-bottom:1px solid var(--rule);
+    height:3px;
+  }
+
+  @media(max-width:600px){
+    .cols-2,.cols-3{grid-template-columns:1fr}
+    .col-span-2,.col-span-3{grid-column:span 1}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-title">La Maison Dorée</div>
+  <div class="masthead-sub">Restaurant & Brasserie — Menu du Jour</div>
+</div>
+
+<div class="book-wrap">
+  <div class="book" id="book">
+    <!-- LEFT PAGE -->
+    <div class="page-wrap" id="leftPage">
+      <div class="page" id="leftContent"></div>
+    </div>
+    <!-- SPINE -->
+    <div class="spine"></div>
+    <!-- RIGHT PAGE -->
+    <div class="page-wrap is-right" id="rightPage">
+      <div class="page" id="rightContent"></div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="ctrl-btn" id="prevBtn" onclick="turnPage(-1)" disabled>◀ Page précédente</button>
+  <button class="ctrl-btn" id="nextBtn" onclick="turnPage(1)">Page suivante ▶</button>
+</div>
+<div class="page-indicator" id="pageIndicator">Pages 1 – 2 sur 8</div>
+
+<script>
+const pages = [
+  // PAGE 1 — Front Cover / Entrées
+  `<div class="pg-header">
+    <span>Vol. I, No. 12</span>
+    <span>La Maison Dorée</span>
+    <span class="pg-num">Page I</span>
+  </div>
+  <div class="inner-masthead">
+    <div class="paper-name">La Maison Dorée</div>
+    <div class="paper-meta">Restaurant & Brasserie · Fondé en 1887 · Marburg, Hesse</div>
+    <div class="paper-tagline">« Une table où chaque repas devient un souvenir »</div>
+  </div>
+  <div class="cols-3">
+    <div class="col-span-2">
+      <div class="kicker">— Première Page —</div>
+      <div class="headline-xl">Les Entrées<br>du Printemps</div>
+      <div class="subhead">"Les premières saveurs de la saison, cueillies avec soin pour votre plaisir"</div>
+      <p class="body-text drop-cap">Bienvenue à La Maison Dorée, où chaque assiette raconte l'histoire de notre terroir et du travail artisanal de nos producteurs locaux. Ce menu de printemps a été composé par notre chef Arnaud avec les premiers arrivages du marché.</p>
+      <div class="ornament">— ✦ —</div>
+      <div class="section-rule"><span>Nos Entrées</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Velouté de Pois Frais</span><span class="menu-entry-price">9,50 €</span></div>
+        <div class="menu-entry-desc">Crème légère à la menthe, croûtons de pain rustique, huile de truffe blanche</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Tartare de Saumon Fumé</span><span class="menu-entry-price">13,00 €</span></div>
+        <div class="menu-entry-desc">Câpres, aneth frais, crème acidulée, galette de sarrasin maison</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Foie Gras de Canard</span><span class="menu-entry-price">17,50 €</span></div>
+        <div class="menu-entry-desc">Confit maison, chutney de figues, brioche toastée au beurre noisette</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Salade de Chèvre Chaud</span><span class="menu-entry-price">11,00 €</span></div>
+        <div class="menu-entry-desc">Fromage de chèvre rôti, noix caramélisées, pommes vertes, miel de lavande</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Soupe à l'Oignon Gratinée</span><span class="menu-entry-price">10,50 €</span></div>
+        <div class="menu-entry-desc">Recette traditionnelle, croûton gratiné au fromage Comté affiné 12 mois</div>
+      </div>
+    </div>
+    <div>
+      <div class="box box-double">
+        <div class="box-title">Le Chef</div>
+        <div class="photo-box" style="height:90px;">Arnaud Leclerc<br>Chef depuis 2015</div>
+        <p class="body-text" style="margin-top:6px;font-size:0.65rem">« Ce printemps, j'ai voulu capturer la légèreté des premières verdures dans chacune de mes créations. »</p>
+      </div>
+      <div class="ornament" style="margin:0.8rem 0 0.4rem">— ✦ —</div>
+      <div class="box">
+        <div class="box-title">Infos</div>
+        <p class="body-text" style="font-size:0.65rem">Ouvert Mar – Dim<br>12h00 – 14h30<br>19h00 – 22h30<br><br>Réservations :<br>+49 6421 123 456</p>
+      </div>
+    </div>
+  </div>`,
+
+  // PAGE 2 — Plats Viandes
+  `<div class="pg-header">
+    <span class="pg-num">Page II</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Printemps 2026</span>
+  </div>
+  <div class="headline-lg">Les Plats — Viandes & Volailles</div>
+  <div class="subhead">"Élevages sélectionnés, cuissons maîtrisées, saveurs authentiques"</div>
+  <div class="cols-2">
+    <div>
+      <p class="body-text drop-cap">Notre carte des viandes fait la part belle aux éleveurs locaux de la région Hessoise et des terroirs voisins. Chaque pièce est maturée selon les règles de l'art.</p>
+      <div class="section-rule"><span>Viandes Rouges</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Entrecôte Grillée</span><span class="menu-entry-price">26,00 €</span></div>
+        <div class="menu-entry-desc">Sauce au poivre vert, frites maison, salade du marché · 300g</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Côte de Bœuf (2 pers.)</span><span class="menu-entry-price">58,00 €</span></div>
+        <div class="menu-entry-desc">Maturée 45 jours, beurre maître d'hôtel, gratin dauphinois · 800g</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Agneau Confit 7 Heures</span><span class="menu-entry-price">28,50 €</span></div>
+        <div class="menu-entry-desc">Épaule fondante, semoule dorée, harissa douce, menthe fraîche</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Tartare de Bœuf</span><span class="menu-entry-price">21,00 €</span></div>
+        <div class="menu-entry-desc">Haché au couteau, câpres, échalotes, jaune d'œuf, frites de pommes de terre ratte</div>
+      </div>
+      <div class="section-rule"><span>Volailles</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Magret de Canard</span><span class="menu-entry-price">24,00 €</span></div>
+        <div class="menu-entry-desc">Jus aux cerises, purée de panais, légumes rôtis de saison</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Rôti Label Rouge</span><span class="menu-entry-price">19,50 €</span></div>
+        <div class="menu-entry-desc">Jus de cuisson, haricots verts à l'ail, pommes grenaille rôties</div>
+      </div>
+    </div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="box">
+        <div class="box-title">Suggestions du Sommelier</div>
+        <p class="body-text" style="font-size:0.66rem">Pour accompagner vos viandes rouges, notre sommelier Pierre conseille le <em>Bordeaux Château Margaux 2019</em> (38 €) ou le <em>Côtes du Rhône Villages</em> au verre (7,50 €).</p>
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="photo-box" style="height:110px;margin-top:0.4rem">
+        Illustration :<br>L'Entrecôte Grillée<br>Maison
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="section-rule"><span>Accompagnements</span></div>
+      <p class="body-text" style="font-size:0.66rem">Tous nos plats sont servis avec une garniture. Suppléments : gratin dauphinois +3 €, frites maison +2,50 €, légumes vapeur +2 €.</p>
+    </div>
+  </div>`,
+
+  // PAGE 3 — Poissons
+  `<div class="pg-header">
+    <span class="pg-num">Page III</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Printemps 2026</span>
+  </div>
+  <div class="headline-lg">Les Poissons & Fruits de Mer</div>
+  <div class="subhead">"Fraîcheur garantie — Arrivages quotidiens du marché de Rungis"</div>
+  <div class="cols-3">
+    <div class="col-span-2">
+      <p class="body-text drop-cap">Chaque matin, notre poissonnier sélectionne les meilleurs arrivages pour composer une carte vivante, au gré des saisons et des pêches. Nos poissons sont travaillés le jour même de leur réception.</p>
+      <div class="section-rule"><span>Poissons du Jour</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Filet de Bar Sauvage</span><span class="menu-entry-price">29,00 €</span></div>
+        <div class="menu-entry-desc">Beurre blanc aux agrumes, asperges vertes, riz pilaf au safran</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Saumon Rôti en Croûte d'Herbes</span><span class="menu-entry-price">22,50 €</span></div>
+        <div class="menu-entry-desc">Croûte persillée, sauce vierge aux tomates confites, pommes grenaille</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Sole Meunière</span><span class="menu-entry-price">32,00 €</span></div>
+        <div class="menu-entry-desc">Beurre noisette, citron, câpres, pommes vapeur — recette classique</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Dos de Cabillaud</span><span class="menu-entry-price">24,00 €</span></div>
+        <div class="menu-entry-desc">Sauce chorizo doux, polenta crémeuse, légumes rôtis</div>
+      </div>
+      <div class="section-rule"><span>Fruits de Mer</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Risotto aux Fruits de Mer</span><span class="menu-entry-price">21,00 €</span></div>
+        <div class="menu-entry-desc">Crevettes, moules, coquilles Saint-Jacques, parmesan affiné, bisque légère</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Plateau de Fruits de Mer</span><span class="menu-entry-price">45,00 €</span></div>
+        <div class="menu-entry-desc">Huîtres, crevettes, bulots, tourteau — sur glace pilée · pour 2 personnes</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Moules Marinières</span><span class="menu-entry-price">16,00 €</span></div>
+        <div class="menu-entry-desc">Vin blanc, échalotes, persil frais, crème fraîche · frites maison incluses</div>
+      </div>
+    </div>
+    <div>
+      <div class="box box-double">
+        <div class="box-title">Le Saviez-Vous ?</div>
+        <p class="body-text" style="font-size:0.65rem">La sole meunière était le plat préféré de Julia Child lors de son premier repas en France. Notre recette respecte la tradition depuis plus de 30 ans.</p>
+      </div>
+      <div class="section-rule" style="margin-top:0.8rem"><span>Vins Blancs</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Chablis 1er Cru</span><span class="menu-entry-price">32 € / btl</span></div>
+        <div class="menu-entry-desc">Notes minérales, parfait avec les poissons fins</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Sancerre Blanc</span><span class="menu-entry-price">36 € / btl</span></div>
+        <div class="menu-entry-desc">Sauvignon vif et fruité, idéal avec les fruits de mer</div>
+      </div>
+    </div>
+  </div>`,
+
+  // PAGE 4 — Desserts
+  `<div class="pg-header">
+    <span class="pg-num">Page IV</span>
+    <span>La Maison Dorée — Menu</span>
+    <span>Printemps 2026</span>
+  </div>
+  <div class="headline-lg">Les Desserts & Douceurs</div>
+  <div class="subhead">"Toutes nos pâtisseries sont confectionnées chaque matin par notre pâtissière Sophie"</div>
+  <div class="cols-2">
+    <div>
+      <p class="body-text drop-cap">La carte des desserts change avec les saisons et l'humeur créatrice de Sophie Bertrand, notre pâtissière depuis 2018, formée à l'école Ferrandi à Paris. Chaque dessert est une œuvre.</p>
+      <div class="section-rule"><span>Desserts Classiques</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Tarte Tatin</span><span class="menu-entry-price">9,00 €</span></div>
+        <div class="menu-entry-desc">Pommes caramélisées, pâte feuilletée inversée, crème fraîche épaisse</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Crème Brûlée à la Vanille</span><span class="menu-entry-price">8,50 €</span></div>
+        <div class="menu-entry-desc">Vanille de Tahiti, sucre roux caramélisé à la flamme, tuile dentelle</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Fondant Chocolat Noir 70%</span><span class="menu-entry-price">10,00 €</span></div>
+        <div class="menu-entry-desc">Coulant au cœur, glace au lait d'amande, éclats de pralinés</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Île Flottante</span><span class="menu-entry-price">7,50 €</span></div>
+        <div class="menu-entry-desc">Blancs en neige, crème anglaise à la vanille, pralin croquant</div>
+      </div>
+      <div class="section-rule"><span>Fromages</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Assiette de Fromages</span><span class="menu-entry-price">12,00 €</span></div>
+        <div class="menu-entry-desc">Sélection de 3 fromages affinés, pain de campagne, confiture de cerises</div>
+      </div>
+    </div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="section-rule"><span>Créations du Moment</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Mille-Feuille de Saison</span><span class="menu-entry-price">11,00 €</span></div>
+        <div class="menu-entry-desc">Feuilletage caramélisé, crème mousseline à la fraise, fraises fraîches</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Paris-Brest Revisité</span><span class="menu-entry-price">10,50 €</span></div>
+        <div class="menu-entry-desc">Pâte à choux, crème pralinée légère, noisettes torréfiées</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Sorbet du Marché</span><span class="menu-entry-price">6,50 €</span></div>
+        <div class="menu-entry-desc">Fruit de saison, coulis maison — demandez la saveur du jour</div>
+      </div>
+      <div class="ornament" style="margin:0.7rem 0">— ✦ —</div>
+      <div class="box">
+        <div class="box-title">Vins Doux & Digestifs</div>
+        <p class="body-text" style="font-size:0.65rem">Sauternes au verre · 8 €<br>Armagnac Hors d'âge · 12 €<br>Cognac V.S.O.P. · 10 €<br>Calvados Pays d'Auge · 9 €<br>Porto Vintage · 8 €</p>
+      </div>
+    </div>
+  </div>`,
+
+  // PAGE 5 — Boissons
+  `<div class="pg-header">
+    <span class="pg-num">Page V</span>
+    <span>La Maison Dorée — Boissons</span>
+    <span>Printemps 2026</span>
+  </div>
+  <div class="headline-lg">La Cave & Les Boissons</div>
+  <div class="subhead">"Une sélection de vins soigneusement constituée par notre sommelier"</div>
+  <div class="cols-3">
+    <div>
+      <div class="section-rule"><span>Vins Rouges</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Bordeaux 2019</span><span class="menu-entry-price">38 €</span></div>
+        <div class="menu-entry-desc">Château Margaux · Cassis, vanille, tanins soyeux</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Bourgogne Pinot Noir</span><span class="menu-entry-price">32 €</span></div>
+        <div class="menu-entry-desc">Gevrey-Chambertin 2020 · Cerise, épices douces</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Côtes du Rhône</span><span class="menu-entry-price">22 €</span></div>
+        <div class="menu-entry-desc">Villages 2021 · Grenache, Syrah · fruits noirs</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Au verre</span><span class="menu-entry-price">7,50 €</span></div>
+        <div class="menu-entry-desc">Demandez notre sélection du jour</div>
+      </div>
+    </div>
+    <div class="v-rule" style="padding-left:0.6rem">
+      <div class="section-rule"><span>Vins Blancs</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Chablis 1er Cru</span><span class="menu-entry-price">32 €</span></div>
+        <div class="menu-entry-desc">Mineral, citrus · parfait avec poissons</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Sancerre 2022</span><span class="menu-entry-price">36 €</span></div>
+        <div class="menu-entry-desc">Sauvignon vif · fruits de mer</div>
+      </div>
+      <div class="section-rule"><span>Rosé & Bulles</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Rosé Provence</span><span class="menu-entry-price">26 €</span></div>
+        <div class="menu-entry-desc">Léger, frais · 2023</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Champagne Brut</span><span class="menu-entry-price">55 €</span></div>
+        <div class="menu-entry-desc">Maison Taittinger · Flûte 12 €</div>
+      </div>
+    </div>
+    <div class="v-rule" style="padding-left:0.6rem">
+      <div class="section-rule"><span>Softs & Cafés</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Limonade Maison</span><span class="menu-entry-price">5,50 €</span></div>
+        <div class="menu-entry-desc">Citron, gingembre, fleur de sureau</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Eau minérale</span><span class="menu-entry-price">3,50 €</span></div>
+        <div class="menu-entry-desc">Plate ou gazeuse · 75cl</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Jus de fruits frais</span><span class="menu-entry-price">6,00 €</span></div>
+        <div class="menu-entry-desc">Pressé à la commande</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Café Espresso</span><span class="menu-entry-price">3,50 €</span></div>
+        <div class="menu-entry-desc">Grains torréfiés artisanalement</div>
+      </div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Cocktail Maison</span><span class="menu-entry-price">9,00 €</span></div>
+        <div class="menu-entry-desc">Varie selon saison · sans alcool dispo</div>
+      </div>
+    </div>
+  </div>`,
+
+  // PAGE 6 — Menus / Formules
+  `<div class="pg-header">
+    <span class="pg-num">Page VI</span>
+    <span>La Maison Dorée — Formules</span>
+    <span>Printemps 2026</span>
+  </div>
+  <div class="headline-lg">Nos Formules & Menus</div>
+  <div class="subhead">"Des menus soigneusement composés pour tous les moments de la journée"</div>
+  <div class="cols-2">
+    <div>
+      <div class="box box-double">
+        <div class="box-title">Menu Déjeuner — 28 €</div>
+        <p class="body-text" style="margin-bottom:6px">Servi uniquement le midi, du mardi au vendredi.</p>
+        <p class="body-text">Entrée + Plat <em>ou</em> Plat + Dessert au choix parmi une sélection du marché. Café offert.</p>
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="box box-double">
+        <div class="box-title">Menu Découverte — 45 €</div>
+        <p class="body-text">Entrée + Plat + Dessert au choix dans la carte complète. Un verre de vin sélectionné par notre sommelier inclus.</p>
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="box box-double">
+        <div class="box-title">Menu Gastronomique — 68 €</div>
+        <p class="body-text">5 services : Amuse-bouche · Entrée · Poisson <em>ou</em> Viande · Pré-dessert · Dessert. Accord mets-vins disponible +35 €.</p>
+      </div>
+    </div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="box">
+        <div class="box-title">Groupes & Événements</div>
+        <p class="body-text" style="font-size:0.68rem">La Maison Dorée propose une salle privatisable pour vos événements privés et professionnels jusqu'à 40 convives. Menus sur mesure disponibles. Contactez-nous au +49 6421 123 456.</p>
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="box">
+        <div class="box-title">Allergènes</div>
+        <p class="body-text" style="font-size:0.65rem">Notre équipe est formée pour répondre à toutes vos questions concernant les allergènes et les régimes alimentaires. N'hésitez pas à informer votre serveur de vos intolérances.</p>
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="box">
+        <div class="box-title">Notre Engagement</div>
+        <p class="body-text" style="font-size:0.65rem">100% des légumes proviennent de producteurs locaux (rayon de 80 km). Nos viandes sont issues d'élevages certifiés bien-être animal. Poissons labellisés MSC.</p>
+      </div>
+    </div>
+  </div>`,
+
+  // PAGE 7 — Histoire & Ambiance
+  `<div class="pg-header">
+    <span class="pg-num">Page VII</span>
+    <span>La Maison Dorée — Notre Histoire</span>
+    <span>Fondée en 1887</span>
+  </div>
+  <div class="headline-xl" style="font-size:1.8rem">L'Histoire de<br>La Maison Dorée</div>
+  <div class="subhead">"Plus de 135 ans de passion pour la cuisine française"</div>
+  <div class="cols-2">
+    <div>
+      <p class="body-text drop-cap">Fondée en 1887 par Henri Beaumont, ancien cuisinier de la cour impériale, La Maison Dorée s'est imposée comme l'une des tables incontournables de Marburg depuis plus d'un siècle. Traversant les guerres, les crises et les révolutions culinaires, elle a su conserver son âme et son identité.</p>
+      <div class="ornament">— ✦ —</div>
+      <p class="body-text">Sous la direction de la famille Beaumont pendant trois générations, puis reprise en 2010 par l'entrepreneur passionné Marc Delacroix, la maison a connu une renaissance tout en restant fidèle à ses valeurs fondatrices : produits de qualité, service attentionné, et une cuisine qui fait voyager.</p>
+      <div class="ornament">— ✦ —</div>
+      <p class="body-text">Aujourd'hui, le chef Arnaud Leclerc perpétue cette tradition avec un regard résolument moderne, revisitant les classiques français avec les techniques contemporaines qu'il a acquises dans les grandes maisons étoilées de Paris et de Lyon.</p>
+    </div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="photo-box" style="height:130px">
+        Photographie :<br>La Maison Dorée<br>Circa 1912
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="section-rule"><span>Distinctions</span></div>
+      <p class="body-text" style="font-size:0.68rem"><strong>1923</strong> — Premier Prix du Guide Michelin, région Hesse<br><br><strong>1961</strong> — Médaille d'Or, Concours de Gastronomie Française<br><br><strong>2018</strong> — Bib Gourmand Michelin<br><br><strong>2023</strong> — "Meilleur Restaurant de Marburg" — Frankfurter Allgemeine<br><br><strong>2025</strong> — Sélectionné parmi les 50 meilleures brasseries d'Allemagne</p>
+    </div>
+  </div>`,
+
+  // PAGE 8 — Contact / Quatrième de couverture
+  `<div class="pg-header">
+    <span class="pg-num">Page VIII</span>
+    <span>La Maison Dorée</span>
+    <span>Nous Trouver</span>
+  </div>
+  <div style="text-align:center;margin-bottom:0.8rem">
+    <div class="headline-lg" style="text-align:center">Venez Nous Rendre Visite</div>
+    <div style="font-size:0.7rem;font-style:italic;color:var(--ink-faded);margin-top:3px">« Une table, une histoire, un souvenir pour toujours »</div>
+  </div>
+  <hr class="double">
+  <div class="cols-2">
+    <div>
+      <div class="section-rule"><span>Adresse & Accès</span></div>
+      <p class="body-text">La Maison Dorée<br>12 Barfüßerstraße<br>35037 Marburg an der Lahn<br>Hesse, Allemagne</p>
+      <div class="ornament">— ✦ —</div>
+      <div class="section-rule"><span>Horaires</span></div>
+      <p class="body-text">Mardi – Vendredi : 12h00 – 14h30 / 19h00 – 22h30<br>Samedi : 12h00 – 15h00 / 19h00 – 23h00<br>Dimanche : 12h00 – 16h00 (brunch)<br>Lundi : Fermé</p>
+      <div class="ornament">— ✦ —</div>
+      <div class="section-rule"><span>Contact</span></div>
+      <p class="body-text">Téléphone : +49 6421 123 456<br>Email : reservations@lamaisondoree.de<br>Site : www.lamaisondoree.de</p>
+    </div>
+    <div class="v-rule" style="padding-left:0.8rem">
+      <div class="photo-box" style="height:120px">
+        Plan d'accès<br>Marburg an der Lahn<br>Vieille ville historique
+      </div>
+      <div class="ornament">— ✦ —</div>
+      <div class="box box-double">
+        <div class="box-title">Réservations</div>
+        <p class="body-text" style="font-size:0.66rem">Réservations recommandées, particulièrement le week-end. Groupes dès 8 personnes : merci de nous contacter directement pour un devis personnalisé.</p>
+      </div>
+      <div class="ornament" style="margin-top:0.8rem">— ✦ —</div>
+      <div style="text-align:center;margin-top:0.5rem">
+        <div style="font-family:'UnifrakturMaguntia',cursive;font-size:1.4rem;color:var(--ink)">La Maison Dorée</div>
+        <div style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--ink-faded);font-family:'Libre Baskerville',serif">Fondée en 1887</div>
+      </div>
+    </div>
+  </div>
+  <hr class="double" style="margin-top:0.8rem">
+  <p class="body-text" style="text-align:center;font-size:0.6rem;margin-top:0.4rem;color:var(--ink-faded)">© La Maison Dorée · Tous droits réservés · Menu valable jusqu'au 30 Juin 2026 · Prix TTC, service compris</p>`
+];
+
+let currentSpread = 0; // 0 = pages 0-1, 1 = pages 2-3, etc.
+const totalSpreads = Math.ceil(pages.length / 2);
+
+function render() {
+  const l = currentSpread * 2;
+  const r = l + 1;
+  document.getElementById('leftContent').innerHTML = pages[l] || '';
+  document.getElementById('rightContent').innerHTML = pages[r] || '';
+  document.getElementById('prevBtn').disabled = currentSpread === 0;
+  document.getElementById('nextBtn').disabled = currentSpread >= totalSpreads - 1;
+  document.getElementById('pageIndicator').textContent =
+    `Pages ${l+1} – ${Math.min(r+1, pages.length)} sur ${pages.length}`;
+}
+
+function turnPage(dir) {
+  const lp = document.getElementById('leftPage');
+  const rp = document.getElementById('rightPage');
+  if (dir === 1 && currentSpread < totalSpreads - 1) {
+    rp.classList.add('flipping-left');
+    setTimeout(() => {
+      rp.classList.remove('flipping-left');
+      currentSpread++;
+      render();
+    }, 400);
+  } else if (dir === -1 && currentSpread > 0) {
+    lp.classList.add('flipping-right');
+    setTimeout(() => {
+      lp.classList.remove('flipping-right');
+      currentSpread--;
+      render();
+    }, 400);
+  }
+}
+
+render();
+</script>
+</body>
+</html>
