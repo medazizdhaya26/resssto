@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Maison Dorée — Menu Journal</title>
+<title>Le Journal — Menu</title>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -254,7 +254,7 @@
   .menu-entry-desc{
     font-size:0.66rem;
     font-style:italic;
-    color:var(--ink-faded);
+    color:var(--ink);
     line-height:1.4;
     font-family:'IM Fell English',serif;
   }
@@ -400,8 +400,8 @@
 <body>
 
 <div class="masthead">
-  <div class="masthead-title">La Maison Dorée</div>
-  <div class="masthead-sub">Restaurant & Brasserie — Menu du Jour</div>
+  <div class="masthead-title">Le Journal</div>
+  <div class="masthead-sub">Restaurant & Brasserie — Menu</div>
 </div>
 
 <div class="book-wrap">
@@ -420,8 +420,8 @@
 </div>
 
 <div class="controls">
-  <button class="ctrl-btn" id="prevBtn" onclick="turnPage(-1)" disabled>Page précédente</button>
-  <button class="ctrl-btn" id="nextBtn" onclick="turnPage(1)">Page suivante</button>
+  <button class="ctrl-btn" id="prevBtn" onclick="turnPage(-1)" disabled>◀ Page précédente</button>
+  <button class="ctrl-btn" id="nextBtn" onclick="turnPage(1)">Page suivante ▶</button>
 </div>
 <div class="page-indicator" id="pageIndicator">Pages 1 – 2 sur 10</div>
 
@@ -430,12 +430,12 @@ const pages = [
   // PAGE 1 — Petit-déjeuner
   `<div class="pg-header">
     <span>Vol. I, No. 12</span>
-    <span>La Maison Dorée</span>
+    <span>Le Journal</span>
     <span class="pg-num">Page I</span>
   </div>
   <div class="inner-masthead">
-    <div class="paper-name">La Maison Dorée</div>
-    <div class="paper-meta">Restaurant & Brasserie · Menu du Jour</div>
+    <div class="paper-name">Le Journal</div>
+    <div class="paper-meta">Restaurant & Brasserie · Menu</div>
     <div class="paper-tagline">« Une table où chaque repas devient un souvenir »</div>
   </div>
   <div class="cols-2">
@@ -445,7 +445,7 @@ const pages = [
       <div class="subhead">"Commencez votre journée avec nos délicieuses options"</div>
       <p class="body-text drop-cap">Découvrez notre sélection de petit-déjeuners soigneusement préparés pour bien commencer la journée.</p>
       <div class="ornament">— ✦ —</div>
-      <div class="section-rule"><span>Petit-déjeuner</span></div>
+      <div class="section-rule"><span></span></div>
       <div class="menu-entry">
         <div class="menu-entry-head"><span class="menu-entry-name">Petit-déjeuner Bonjour</span><span class="menu-entry-price">11,200</span></div>
         <div class="menu-entry-desc">Eau 0.5l - Jus frais - Viennoiserie - Mini omelette - Café au choix</div>
@@ -456,7 +456,7 @@ const pages = [
       </div>
       <div class="menu-entry">
         <div class="menu-entry-head"><span class="menu-entry-name">Brunch Le Journal (Pour 2 personnes)</span><span class="menu-entry-price">52,100</span></div>
-        <div class="menu-entry-desc">Café au choix - 2 Mini jus - 2 Viennoiseries - Omelette - Charcuterie - Crêpe chocolat - Datte farcie - Ricotta - Pain perdu caramel - Mini bol granola - Crêpe salée - Poulet gratiné - Harissa - Huile d'olive - Beurre - Confiture - Miel - Eau 1l - Brownies</div>
+        <div class="menu-entry-desc">Café au choix - 2 Mini jus - 2 Viennoiseries - Omelette - Charcuterie - Crêpe chocolat - Datte farcie - Ricotta - Pain perdu caramel -Ojja - Mini bol granola - Crêpe salée - Poulet gratiné - Harissa - Huile d'olive - Beurre - Confiture - Miel - Eau 1l - Brownies</div>
       </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
@@ -470,8 +470,8 @@ const pages = [
   // PAGE 2 — Les Toasts & Croissant
   `<div class="pg-header">
     <span class="pg-num">Page II</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+    <span>Le Journal — Menu</span>
+    <span>Menu</span>
   </div>
   <div class="headline-lg">Les Toasts & Croissant</div>
   <div class="subhead">"Nos délicieux toasts et croissants pour tous les goûts"</div>
@@ -509,18 +509,15 @@ const pages = [
         <div class="menu-entry-head"><span class="menu-entry-name">Croissant Sucré</span><span class="menu-entry-price">12,000</span></div>
         <div class="menu-entry-desc">Banane Spéculoos ou Nutella fraise - Fruit sec</div>
       </div>
-      <div class="box">
-        <div class="box-title">Supplément</div>
-        <p class="body-text" style="font-size:0.65rem">Café + Eau 0.5l + Mini jus · 6,000</p>
-      </div>
+      
     </div>
   </div>`,
 
   // PAGE 3 — Les Crêpes, Gaufres & Pains Perdus
   `<div class="pg-header">
     <span class="pg-num">Page III</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+    <span>Le Journal — Menu</span>
+    <span>Menu</span>
   </div>
   <div class="headline-lg">Les Crêpes & Gaufres</div>
   <div class="subhead">"Nos délicieuses crêpes et gaufres sucrées et salées"</div>
@@ -554,7 +551,7 @@ const pages = [
       </div>
       <div class="section-rule"><span>Pains Perdus (Sucrés)</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Pain Perdu Beurre Salé</span><span class="menu-entry-price">15,500</span></div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Pain Perdu caramel</span><span class="menu-entry-price">15,500</span></div>
         <div class="menu-entry-desc">(Pomme ou banane) caramel - amande effilée - Boule de glace</div>
       </div>
       <div class="menu-entry">
@@ -575,8 +572,8 @@ const pages = [
   // PAGE 4 — Crêpes Salées, Omelettes & Salades
   `<div class="pg-header">
     <span class="pg-num">Page IV</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+    <span>Le Journal — Menu</span>
+    <span>Menu</span>
   </div>
   <div class="headline-lg">Crêpes Salées & Omelettes</div>
   <div class="subhead">"Nos délicieuses crêpes salées, omelettes et salades"</div>
@@ -604,6 +601,9 @@ const pages = [
       <div class="menu-entry">
         <div class="menu-entry-head"><span class="menu-entry-name">Omelette Végétarienne</span><span class="menu-entry-price">14,000</span></div>
       </div>
+       <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Omelette Fromages</span><span class="menu-entry-price">13,000</span></div>
+      </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
       <div class="menu-entry">
@@ -616,6 +616,23 @@ const pages = [
       </div>
       <div class="menu-entry">
         <div class="menu-entry-head"><span class="menu-entry-name">Salade Burrata</span><span class="menu-entry-price">20,900</span></div>
+            <div class="menu-entry-desc"> Roquette - Tomate - Burrata - Pesto - Balsamique - Noix - Bresaola.</div>
+
+        </div>
+    </div>
+  </div>
+  
+  
+      <div class="v-rule" style="padding-left:0.8rem">
+      
+      <div class="section-rule"><span>Pains Perdus Salés</span></div>
+      <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Pain perdu poulet fumé </span><span class="menu-entry-price">15,500</span></div>
+        <div class="menu-entry-desc">Sauce fromage – Poulet fumé – Œuf poché – Pesto – Roquette</div>
+      </div>
+        <div class="menu-entry">
+        <div class="menu-entry-head"><span class="menu-entry-name">Pain perdu saumon</span><span class="menu-entry-price">18,900</span></div>
+        <div class="menu-entry-desc">Sauce fromage – Saumon – Œuf poché – Avocat – Roquette</div>
       </div>
     </div>
   </div>`,
@@ -623,8 +640,8 @@ const pages = [
   // PAGE 5 — Pasta & Pizzas
   `<div class="pg-header">
     <span class="pg-num">Page V</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+    <span>Le Journal — Menu</span>
+    <span>Menu</span>
   </div>
   <div class="headline-lg">Pasta & Pizzas</div>
   <div class="subhead">"Nos délicieuses pasta et pizzas préparées avec amour"</div>
@@ -668,55 +685,105 @@ const pages = [
       </div>
       <div class="menu-entry">
         <div class="menu-entry-head"><span class="menu-entry-name">Burrata</span><span class="menu-entry-price">24,300</span></div>
-        <div class="menu-entry-desc">Fromage</div>
+        <div class="menu-entry-desc">Fromage - Pesto - Tomate cerise - Burrata - Huile d’olive - Basilique.</div>
       </div>
     </div>
   </div>`,
 
   // PAGE 6 — Les Plats & Sandwichs
-  `<div class="pg-header">
-    <span class="pg-num">Page VI</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+  `<div class="headline-lg">Les Plats & Sandwichs</div>
+<div class="subhead">"Nos délicieux plats principaux et sandwichs"</div>
+<div class="cols-2">
+  <div>
+    <div class="section-rule"><span>Les Plats</span></div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Poulet Grillé</span>
+        <span class="menu-entry-price">22,800</span>
+      </div>
+    </div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Poulet Sauce Champignon</span>
+        <span class="menu-entry-price">24,200</span>
+      </div>
+    </div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Poulet Panné</span>
+        <span class="menu-entry-price">26,200</span>
+      </div>
+    </div>
+
+    <!-- NEW ITEMS -->
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Dorade au four</span>
+        <span class="menu-entry-price">24,000</span>
+      </div>
+    </div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Filet de bœuf</span>
+        <span class="menu-entry-price">42,000</span>
+      </div>
+      <div class="menu-entry-desc">Sauce au choix</div>
+    </div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Côte à l’os</span>
+        <span class="menu-entry-price">35,000</span>
+      </div>
+      <div class="menu-entry-desc">Sauce au choix</div>
+    </div>
+    <!-- END NEW ITEMS -->
+
+    <div class="section-rule"><span>Sandwichs & Makloub</span></div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Thon</span>
+        <span class="menu-entry-price">14,200</span>
+      </div>
+    </div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Escalope Grillée ou Panée</span>
+        <span class="menu-entry-price">14,200</span>
+      </div>
+    </div>
   </div>
-  <div class="headline-lg">Les Plats & Sandwichs</div>
-  <div class="subhead">"Nos délicieux plats principaux et sandwichs"</div>
-  <div class="cols-2">
-    <div>
-      <div class="section-rule"><span>Les Plats</span></div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Grillé</span><span class="menu-entry-price">22,800</span></div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Sauce Champignon</span><span class="menu-entry-price">24,200</span></div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Poulet Panné</span><span class="menu-entry-price">26,200</span></div>
-      </div>
-      <div class="section-rule"><span>Sandwichs & Makloub</span></div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Thon</span><span class="menu-entry-price">13,200</span></div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Escalope Grillée ou Panée</span><span class="menu-entry-price">13,200</span></div>
+
+  <div class="v-rule" style="padding-left:0.8rem">
+    <div class="section-rule"><span>Ciabatta</span></div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Escalope Grillée ou Panée</span>
+        <span class="menu-entry-price">13,200</span>
       </div>
     </div>
-    <div class="v-rule" style="padding-left:0.8rem">
-      <div class="section-rule"><span>Ciabatta</span></div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Escalope Grillée ou Panée</span><span class="menu-entry-price">13,200</span></div>
-      </div>
-      <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Thon</span><span class="menu-entry-price">13,200</span></div>
+
+    <div class="menu-entry">
+      <div class="menu-entry-head">
+        <span class="menu-entry-name">Thon</span>
+        <span class="menu-entry-price">13,200</span>
       </div>
     </div>
-  </div>`,
+  </div>
+</div>`,
 
   // PAGE 7 — Desserts & Boissons
   `<div class="pg-header">
     <span class="pg-num">Page VII</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+    <span>Le Journal — Menu</span>
+    <span>Menu</span>
   </div>
   <div class="headline-lg">Desserts & Boissons</div>
   <div class="subhead">"Nos délicieux desserts et boissons pour terminer votre repas"</div>
@@ -724,7 +791,7 @@ const pages = [
     <div>
       <div class="section-rule"><span>Desserts</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Cheese Cake</span><span class="menu-entry-price">12,000</span></div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Cheese Cake</span><span class="menu-entry-price">16,000</span></div>
       </div>
       <div class="menu-entry">
         <div class="menu-entry-head"><span class="menu-entry-name">Tiramisu</span><span class="menu-entry-price">12,000</span></div>
@@ -784,8 +851,8 @@ const pages = [
   // PAGE 8 — Jus & Smoothies & Mojitos
   `<div class="pg-header">
     <span class="pg-num">Page VIII</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+    <span>Le Journal — Menu</span>
+    <span>Menu</span>
   </div>
   <div class="headline-lg">Jus & Smoothies</div>
   <div class="subhead">"Nos délicieux jus frais et smoothies"</div>
@@ -813,21 +880,21 @@ const pages = [
       </div>
       <div class="section-rule"><span>Smoothie</span></div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie pêche banane</span><span class="menu-entry-price">12,200</span></div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie pêche banane</span><span class="menu-entry-price">13,600</span></div>
       </div>
     </div>
     <div class="v-rule" style="padding-left:0.8rem">
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie fraise banane</span><span class="menu-entry-price">12,200</span></div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie fraise banane</span><span class="menu-entry-price">13,600</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie Pina colada</span><span class="menu-entry-price">12,200</span></div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie Pina colada</span><span class="menu-entry-price">13,600</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie exotiques</span><span class="menu-entry-price">12,200</span></div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie exotiques</span><span class="menu-entry-price">13,600</span></div>
       </div>
       <div class="menu-entry">
-        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie fraise</span><span class="menu-entry-price">12,200</span></div>
+        <div class="menu-entry-head"><span class="menu-entry-name">Smoothie fraise</span><span class="menu-entry-price">13,600</span></div>
       </div>
       <div class="section-rule"><span>Mojito</span></div>
       <div class="menu-entry">
@@ -848,8 +915,8 @@ const pages = [
   // PAGE 9 — Thé & Frappuccino & Chocolat chaud
   `<div class="pg-header">
     <span class="pg-num">Page IX</span>
-    <span>La Maison Dorée — Menu</span>
-    <span>Menu du Jour</span>
+    <span>Le Journal — Menu</span>
+    <span>Menu</span>
   </div>
   <div class="headline-lg">Thé & Frappuccino</div>
   <div class="subhead">"Nos délicieux thés, frappuccinos et chocolats chauds"</div>
@@ -902,7 +969,7 @@ const pages = [
   // PAGE 10 — Café & Latté
   `<div class="pg-header">
     <span class="pg-num">Page X</span>
-    <span>La Maison Dorée</span>
+    <span>Le Journal</span>
     <span>Nous Trouver</span>
   </div>
   <div style="text-align:center;margin-bottom:0.8rem">
@@ -970,7 +1037,7 @@ const pages = [
     </div>
   </div>
   <hr class="double" style="margin-top:0.8rem">
-  <p class="body-text" style="text-align:center;font-size:0.6rem;margin-top:0.4rem;color:var(--ink-faded)">© La Maison Dorée · Tous droits réservés · Menu valable</p>`
+  <p class="body-text" style="text-align:center;font-size:0.6rem;margin-top:0.4rem;color:var(--ink-faded)">© Le Journal · Tous droits réservés · Menu valable</p>`
 ];
 
 let currentPage = 0;
